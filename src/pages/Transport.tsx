@@ -17,30 +17,30 @@ export default function Transport() {
   const routes = [
     {
       id: 1,
-      origin: "Porto",
-      destination: "Lisboa",
+      origin: "São Paulo",
+      destination: "Rio de Janeiro",
       status: "active",
       capacity: "750L",
       co2Saved: "15%",
-      time: "3h 45m"
+      time: "5h 30m"
     },
     {
       id: 2,
-      origin: "Douro",
-      destination: "Aveiro",
+      origin: "Paraná",
+      destination: "Santa Catarina",
       status: "scheduled",
       capacity: "500L",
       co2Saved: "22%",
-      time: "2h 30m"
+      time: "4h 20m"
     },
     {
       id: 3,
-      origin: "Setúbal",
-      destination: "Braga",
+      origin: "Minas Gerais",
+      destination: "Rio Grande do Sul",
       status: "completed",
       capacity: "1200L",
       co2Saved: "18%",
-      time: "4h 15m"
+      time: "8h 45m"
     }
   ];
 
