@@ -11,8 +11,10 @@ import {
   MapPin,
   Clock
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export default function Dashboard() {
+  const navigate = useNavigate();
   return (
     <div className="p-4 space-y-6">
       {/* Welcome Section */}
@@ -59,7 +61,7 @@ export default function Dashboard() {
                   <p className="text-sm text-muted-foreground">12 integradas</p>
                 </div>
               </div>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" onClick={() => navigate('/vinicolas')}>
                 Gerenciar
               </Button>
             </div>

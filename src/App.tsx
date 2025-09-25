@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Transport from "./pages/Transport";
 import Analytics from "./pages/Analytics";
 import Profile from "./pages/Profile";
+import Vinicolas from "./pages/Vinicolas";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
                 <Route path="/analytics" element={<Analytics />} />
                 <Route path="/transport" element={<Transport />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/vinicolas" element={<Vinicolas />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </MobileLayout>
