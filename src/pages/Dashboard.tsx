@@ -135,14 +135,14 @@ export default function Dashboard() {
             <div className="w-2 h-2 bg-success rounded-full mt-2"></div>
             <div>
               <p className="text-sm font-medium">Rota otimizada</p>
-              <p className="text-xs text-muted-foreground">Porto → Lisboa, economia de 15%</p>
+              <p className="text-xs text-muted-foreground">São Paulo → Rio de Janeiro, economia de 15%</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
             <div className="w-2 h-2 bg-wine rounded-full mt-2"></div>
             <div>
               <p className="text-sm font-medium">Nova parceria</p>
-              <p className="text-xs text-muted-foreground">Vinícola Douro integrada</p>
+              <p className="text-xs text-muted-foreground">Vinícola Gaúcha integrada</p>
             </div>
           </div>
           <div className="flex items-start gap-3">
