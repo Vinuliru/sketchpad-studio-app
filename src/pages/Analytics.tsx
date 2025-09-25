@@ -14,10 +14,10 @@ import {
 
 export default function Analytics() {
   const regions = [
-    { name: "Porto", percentage: 35, color: "bg-primary" },
-    { name: "Lisboa", percentage: 28, color: "bg-wine" },
-    { name: "Coimbra", percentage: 22, color: "bg-success" },
-    { name: "Braga", percentage: 15, color: "bg-accent" }
+    { name: "São Paulo", percentage: 35, color: "bg-primary" },
+    { name: "Rio de Janeiro", percentage: 28, color: "bg-wine" },
+    { name: "Minas Gerais", percentage: 22, color: "bg-success" },
+    { name: "Paraná", percentage: 15, color: "bg-accent" }
   ];
 
   const monthlyData = [
