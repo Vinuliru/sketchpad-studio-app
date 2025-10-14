@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -16,9 +17,12 @@ export default function Login() {
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Simple demo login
-    if (email && password) {
+    
+    // Check specific credentials
+    if (email === "Winesense@wine.com.br" && password === "Winesense") {
       navigate("/dashboard");
+    } else {
+      toast.error("Credenciais inválidas. Verifique seu email e senha.");
     }
   };
 
