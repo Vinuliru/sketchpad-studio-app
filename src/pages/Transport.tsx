@@ -1,7 +1,18 @@
+import { useState } from "react";
 import { WineCard } from "@/components/WineCard";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { 
   Truck, 
   Route, 
@@ -12,8 +23,13 @@ import {
   TrendingDown,
   Users
 } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 export default function Transport() {
+  const [openNewRoute, setOpenNewRoute] = useState(false);
+  const [openDetails, setOpenDetails] = useState(false);
+  const [selectedRoute, setSelectedRoute] = useState<any>(null);
+  
   const routes = [
     {
       id: 1,
@@ -131,10 +147,46 @@ export default function Transport() {
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-semibold">Rotas Ativas</h3>
-          <Button variant="outline" size="sm">
-            <Route className="h-4 w-4 mr-2" />
-            Nova Rota
-          </Button>
+          <Dialog open={openNewRoute} onOpenChange={setOpenNewRoute}>
+            <DialogTrigger asChild>
+              <Button variant="outline" size="sm">
+                <Route className="h-4 w-4 mr-2" />
+                Nova Rota
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Criar Nova Rota</DialogTitle>
+                <DialogDescription>
+                  Configure uma nova rota de transporte otimizada.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4 py-4">
+                <div className="space-y-2">
+                  <Label htmlFor="origin">Origem</Label>
+                  <Input id="origin" placeholder="Ex: São Paulo" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="destination">Destino</Label>
+                  <Input id="destination" placeholder="Ex: Rio de Janeiro" />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="capacity">Capacidade (L)</Label>
+                  <Input id="capacity" type="number" placeholder="Ex: 750" />
+                </div>
+                <Button 
+                  className="w-full" 
+                  variant="wine"
+                  onClick={() => {
+                    toast({ title: "Rota criada", description: "Nova rota otimizada com sucesso!" });
+                    setOpenNewRoute(false);
+                  }}
+                >
+                  Criar Rota
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
         </div>
 
         <div className="space-y-3">
@@ -171,7 +223,14 @@ export default function Transport() {
                       -{route.co2Saved} CO₂
                     </span>
                   </div>
-                  <Button variant="outline" size="sm">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => {
+                      setSelectedRoute(route);
+                      setOpenDetails(true);
+                    }}
+                  >
                     Detalhes
                   </Button>
                 </div>
@@ -183,16 +242,75 @@ export default function Transport() {
 
       {/* Quick Actions */}
       <div className="grid grid-cols-2 gap-3">
-        <Button variant="wine" className="h-14 flex-col gap-1">
+        <Button 
+          variant="wine" 
+          className="h-14 flex-col gap-1"
+          onClick={() => toast({ 
+            title: "Otimização iniciada", 
+            description: "Analisando rotas para encontrar a melhor otimização..." 
+          })}
+        >
           <Route className="h-5 w-5" />
           <span className="text-xs">Otimizar Rotas</span>
         </Button>
         
-        <Button variant="success" className="h-14 flex-col gap-1">
+        <Button 
+          variant="success" 
+          className="h-14 flex-col gap-1"
+          onClick={() => toast({ 
+            title: "Gerando relatório", 
+            description: "Seu relatório de emissões CO₂ está sendo preparado..." 
+          })}
+        >
           <Leaf className="h-5 w-5" />
           <span className="text-xs">Relatório CO₂</span>
         </Button>
       </div>
+
+      {/* Route Details Dialog */}
+      <Dialog open={openDetails} onOpenChange={setOpenDetails}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Detalhes da Rota</DialogTitle>
+            <DialogDescription>
+              Informações completas sobre a rota selecionada
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-3">
+              <div className="flex items-center gap-2">
+                <MapPin className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium">Rota:</span>
+                <span className="text-sm text-muted-foreground">
+                  {selectedRoute?.origin} → {selectedRoute?.destination}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Package className="h-4 w-4 text-wine" />
+                <span className="text-sm font-medium">Capacidade:</span>
+                <span className="text-sm text-muted-foreground">{selectedRoute?.capacity}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Clock className="h-4 w-4 text-success" />
+                <span className="text-sm font-medium">Tempo:</span>
+                <span className="text-sm text-muted-foreground">{selectedRoute?.time}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Leaf className="h-4 w-4 text-success" />
+                <span className="text-sm font-medium">CO₂ Economizado:</span>
+                <span className="text-sm text-success">{selectedRoute?.co2Saved}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Truck className="h-4 w-4 text-muted-foreground" />
+                <span className="text-sm font-medium">Status:</span>
+                <Badge className={getStatusColor(selectedRoute?.status || "")}>
+                  {getStatusText(selectedRoute?.status || "")}
+                </Badge>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

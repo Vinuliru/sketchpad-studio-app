@@ -15,8 +15,12 @@ import {
   Award,
   Truck
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 
 export default function Profile() {
+  const navigate = useNavigate();
+  
   const achievements = [
     { title: "Eco Warrior", description: "50+ rotas otimizadas", icon: "🌱" },
     { title: "Efficiency Master", description: "95% taxa de sucesso", icon: "⚡" },
@@ -118,22 +122,38 @@ export default function Profile() {
           <CardTitle>Configurações</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
-          <Button variant="ghost" className="w-full justify-start">
+          <Button 
+            variant="ghost" 
+            className="w-full justify-start"
+            onClick={() => toast({ title: "Configurações", description: "Abrindo configurações gerais..." })}
+          >
             <Settings className="h-4 w-4 mr-3" />
             Configurações Gerais
           </Button>
           
-          <Button variant="ghost" className="w-full justify-start">
+          <Button 
+            variant="ghost" 
+            className="w-full justify-start"
+            onClick={() => toast({ title: "Notificações", description: "Gerenciando suas preferências de notificação..." })}
+          >
             <Bell className="h-4 w-4 mr-3" />
             Notificações
           </Button>
           
-          <Button variant="ghost" className="w-full justify-start">
+          <Button 
+            variant="ghost" 
+            className="w-full justify-start"
+            onClick={() => toast({ title: "Privacidade", description: "Configurando privacidade e segurança..." })}
+          >
             <Shield className="h-4 w-4 mr-3" />
             Privacidade e Segurança
           </Button>
           
-          <Button variant="ghost" className="w-full justify-start">
+          <Button 
+            variant="ghost" 
+            className="w-full justify-start"
+            onClick={() => toast({ title: "Suporte", description: "Conectando você ao suporte..." })}
+          >
             <HelpCircle className="h-4 w-4 mr-3" />
             Ajuda e Suporte
           </Button>
@@ -141,7 +161,14 @@ export default function Profile() {
       </Card>
 
       {/* Logout */}
-      <Button variant="destructive" className="w-full">
+      <Button 
+        variant="destructive" 
+        className="w-full"
+        onClick={() => {
+          toast({ title: "Saindo...", description: "Até logo!" });
+          setTimeout(() => navigate('/login'), 1000);
+        }}
+      >
         <LogOut className="h-4 w-4 mr-2" />
         Sair da Conta
       </Button>

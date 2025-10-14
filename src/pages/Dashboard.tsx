@@ -12,6 +12,7 @@ import {
   Clock
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -80,7 +81,7 @@ export default function Dashboard() {
                   <p className="text-sm text-muted-foreground">8 parceiros</p>
                 </div>
               </div>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" onClick={() => navigate('/transport')}>
                 Ver Rotas
               </Button>
             </div>
@@ -99,7 +100,7 @@ export default function Dashboard() {
                   <p className="text-sm text-muted-foreground">45 ativos</p>
                 </div>
               </div>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" onClick={() => toast({ title: "Em breve", description: "Esta funcionalidade estará disponível em breve." })}>
                 Explorar
               </Button>
             </div>
@@ -112,12 +113,12 @@ export default function Dashboard() {
         <h3 className="text-lg font-semibold">Ações Rápidas</h3>
         
         <div className="grid grid-cols-2 gap-3">
-          <Button variant="mobile" className="h-16 flex-col gap-1">
+          <Button variant="mobile" className="h-16 flex-col gap-1" onClick={() => navigate('/analytics')}>
             <BarChart3 className="h-5 w-5" />
             <span className="text-xs">Analytics</span>
           </Button>
           
-          <Button variant="wine" className="h-16 flex-col gap-1">
+          <Button variant="wine" className="h-16 flex-col gap-1" onClick={() => navigate('/transport')}>
             <MapPin className="h-5 w-5" />
             <span className="text-xs">Rotas</span>
           </Button>

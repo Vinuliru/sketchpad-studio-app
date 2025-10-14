@@ -11,6 +11,7 @@ import {
   PieChart,
   Activity
 } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 export default function Analytics() {
   const regions = [
@@ -41,10 +42,18 @@ export default function Analytics() {
           </p>
         </div>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => toast({ title: "Filtros", description: "Funcionalidade de filtros em desenvolvimento." })}
+          >
             <Filter className="h-4 w-4" />
           </Button>
-          <Button variant="outline" size="sm">
+          <Button 
+            variant="outline" 
+            size="sm"
+            onClick={() => toast({ title: "Download iniciado", description: "Seu relatório está sendo preparado..." })}
+          >
             <Download className="h-4 w-4" />
           </Button>
         </div>
@@ -154,12 +163,26 @@ export default function Analytics() {
 
       {/* Action Buttons */}
       <div className="grid grid-cols-2 gap-3">
-        <Button variant="wine" className="h-14 flex-col gap-1">
+        <Button 
+          variant="wine" 
+          className="h-14 flex-col gap-1"
+          onClick={() => toast({ 
+            title: "Gerando relatório", 
+            description: "Seu relatório completo está sendo gerado..." 
+          })}
+        >
           <BarChart3 className="h-5 w-5" />
           <span className="text-xs">Relatório Completo</span>
         </Button>
         
-        <Button variant="success" className="h-14 flex-col gap-1">
+        <Button 
+          variant="success" 
+          className="h-14 flex-col gap-1"
+          onClick={() => toast({ 
+            title: "Exportação iniciada", 
+            description: "Seus dados estão sendo exportados em formato CSV..." 
+          })}
+        >
           <Download className="h-5 w-5" />
           <span className="text-xs">Exportar Dados</span>
         </Button>
