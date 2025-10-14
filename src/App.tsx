@@ -22,16 +22,35 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route path="/*" element={
+          <Route path="/dashboard" element={
             <MobileLayout>
-              <Routes>
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/analytics" element={<Analytics />} />
-                <Route path="/transport" element={<Transport />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/vinicolas" element={<Vinicolas />} />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+              <Dashboard />
+            </MobileLayout>
+          } />
+          <Route path="/analytics" element={
+            <MobileLayout>
+              <Analytics />
+            </MobileLayout>
+          } />
+          <Route path="/transport" element={
+            <MobileLayout>
+              <Transport />
+            </MobileLayout>
+          } />
+          <Route path="/profile" element={
+            <MobileLayout>
+              <Profile />
+            </MobileLayout>
+          } />
+          <Route path="/vinicolas" element={
+            <MobileLayout>
+              <Vinicolas />
+            </MobileLayout>
+          } />
+          <Route path="/" element={<Login />} />
+          <Route path="*" element={
+            <MobileLayout>
+              <NotFound />
             </MobileLayout>
           } />
         </Routes>
