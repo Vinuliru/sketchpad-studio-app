@@ -4,7 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Eye, EyeOff, Mail, Lock } from "lucide-react";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Eye, EyeOff, Mail, Lock, LayoutDashboard, BarChart3, Truck, User, Wine } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -13,7 +14,16 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
+  const [showPages, setShowPages] = useState(false);
   const navigate = useNavigate();
+
+  const pages = [
+    { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard, description: "Visão geral do sistema" },
+    { name: "Análises", path: "/analytics", icon: BarChart3, description: "Métricas e relatórios" },
+    { name: "Transporte", path: "/transport", icon: Truck, description: "Gestão de rotas" },
+    { name: "Vinícolas", path: "/vinicolas", icon: Wine, description: "Gerenciar vinícolas" },
+    { name: "Perfil", path: "/profile", icon: User, description: "Configurações do usuário" },
+  ];
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -119,10 +129,42 @@ export default function Login() {
 
             <div className="mt-4 text-center">
               <p className="text-sm text-muted-foreground">
-                Não tem conta?{" "}
-                <Button variant="link" className="p-0 h-auto font-semibold">
-                  Registre-se
-                </Button>
+                Explorar páginas disponíveis{" "}
+                <Dialog open={showPages} onOpenChange={setShowPages}>
+                  <DialogTrigger asChild>
+                    <Button variant="link" className="p-0 h-auto font-semibold">
+                      Ver todas
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-md">
+                    <DialogHeader>
+                      <DialogTitle>Páginas Disponíveis</DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-3 py-4">
+                      {pages.map((page) => (
+                        <Button
+                          key={page.path}
+                          variant="outline"
+                          className="w-full justify-start h-auto py-4"
+                          onClick={() => {
+                            navigate(page.path);
+                            setShowPages(false);
+                          }}
+                        >
+                          <div className="flex items-center gap-3 w-full">
+                            <page.icon className="h-5 w-5 text-primary" />
+                            <div className="text-left">
+                              <div className="font-semibold">{page.name}</div>
+                              <div className="text-xs text-muted-foreground">
+                                {page.description}
+                              </div>
+                            </div>
+                          </div>
+                        </Button>
+                      ))}
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </p>
             </div>
           </CardContent>
