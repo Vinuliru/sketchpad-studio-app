@@ -12,16 +12,14 @@ export function MobileLayout({ children }: MobileLayoutProps) {
   const location = useLocation();
   
   const navItems = [
-    { icon: Home, path: "/", label: "Dashboard" },
+    { icon: Home, path: "/dashboard", label: "Dashboard" },
     { icon: BarChart3, path: "/analytics", label: "Analytics" },
     { icon: Truck, path: "/transport", label: "Transport" },
     { icon: User, path: "/profile", label: "Profile" },
   ];
 
   const isActive = (path: string) => {
-    if (path === "/" && location.pathname === "/") return true;
-    if (path !== "/" && location.pathname.startsWith(path)) return true;
-    return false;
+    return location.pathname === path || location.pathname.startsWith(path + "/");
   };
 
   return (
